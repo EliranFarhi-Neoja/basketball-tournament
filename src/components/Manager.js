@@ -124,7 +124,7 @@ const Manager = () => {
                   <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
                     Game 3
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black ">
+                  <div className="col-span-1 text-[20px] font-bold text-black text-center ">
                     44
                   </div>
                 </div>
@@ -160,7 +160,7 @@ const Manager = () => {
                   <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
                     Game 3
                   </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400]">
+                  <div className="col-span-1 text-[18px] text-black font-[400] text-center">
                     44
                   </div>
                 </div>
