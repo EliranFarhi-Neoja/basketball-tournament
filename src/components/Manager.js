@@ -96,37 +96,77 @@ const Manager = () => {
             </div>
             <Divider sx={{ my: 1 }} />
 
-            <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
-              <div className="col-span-1 text-[18px] text-black font-[400]">
-                1
-              </div>
-              <div className="col-span-2 text-[18px] text-black font-[400]">
-                Emil Khan
-              </div>
-              <div className="col-span-2 text-[18px] text-black font-[400]">
-                The Greats
-              </div>
-              <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                11
-              </div>
-              <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                11
-              </div>
-              <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                22
-              </div>
-              <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                0
-              </div>
+            {[1, 2, 3, 4].map((item, index) => (
+              <>
+                <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
+                  <div className="col-span-1 text-[20px] font-bold text-black ">
+                    {index + 1}
+                  </div>
+                  <div className="col-span-2 text-[20px] font-bold text-black ">
+                    Emil Khan
+                  </div>
+                  <div className="col-span-2 text-[20px] font-bold text-black ">
+                    The Greats
+                  </div>
+                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
+                    11
+                  </div>
+                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
+                    11
+                  </div>
+                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
+                    22
+                  </div>
+                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
+                    0
+                  </div>
 
-              <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                Game 3
-              </div>
-              <div className="col-span-1 text-[18px] text-black font-[400]">
-                44
-              </div>
-            </div>
-            <Divider sx={{ my: 1 }} />
+                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
+                    Game 3
+                  </div>
+                  <div className="col-span-1 text-[20px] font-bold text-black ">
+                    44
+                  </div>
+                </div>
+                <Divider sx={{ my: 1 }} />
+              </>
+            ))}
+
+            {[1, 2, 3, 4,7,8].map((item, index) => (
+              <>
+                <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
+                  <div className="col-span-1 text-[18px] text-black font-[400]">
+                    {index+5}
+                  </div>
+                  <div className="col-span-2 text-[18px] text-black font-[400]">
+                    Emil Khan
+                  </div>
+                  <div className="col-span-2 text-[18px] text-black font-[400]">
+                    The Greats
+                  </div>
+                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
+                    11
+                  </div>
+                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
+                    11
+                  </div>
+                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
+                    22
+                  </div>
+                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
+                    0
+                  </div>
+
+                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
+                    Game 3
+                  </div>
+                  <div className="col-span-1 text-[18px] text-black font-[400]">
+                    44
+                  </div>
+                </div>
+                <Divider sx={{ my: 1 }} />
+              </>
+            ))}
           </div>
         </div>
       ) : (
