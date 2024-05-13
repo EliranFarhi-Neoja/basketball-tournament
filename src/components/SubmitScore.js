@@ -48,7 +48,7 @@ const SubmitScore = () => {
     console.log({
       team, players: [player1, player2,player3,player4]
     })
-    axios.post("http://localhost:7000/upload-score", {
+    axios.post("https://basketball-8c6403ba5b9d.herokuapp.com/upload-score", {
       team, players: [player1, player2,player3,player4]
 
     })

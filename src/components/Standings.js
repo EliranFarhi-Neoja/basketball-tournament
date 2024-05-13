@@ -13,7 +13,7 @@ const Standings = () => {
   const navigate = useNavigate();
 
   const getScores = async() => {
-    await axios.get("http://localhost:7000/get-scores")
+    await axios.get("https://basketball-8c6403ba5b9d.herokuapp.com/get-scores")
     .then((res)=>{
        setScores(res.data.scores.slice(0, 10))
        console.log(res.data.scores.slice(0, 10))

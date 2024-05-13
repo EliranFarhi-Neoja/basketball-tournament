@@ -14,7 +14,7 @@ const Manager = () => {
 
   const getScores = async () => {
     await axios
-      .get("http://localhost:7000/get-scores")
+      .get("https://basketball-8c6403ba5b9d.herokuapp.com/get-scores")
       .then((res) => {
         setScores(res.data.scores.slice(0, 10));
         console.log(res.data.scores.slice(0, 10));
@@ -27,7 +27,7 @@ const Manager = () => {
   const deleteScores = async () => {
     window.confirm('Are you sure you want to reset database?')
     await axios
-      .get("http://localhost:7000/delete-scores")
+      .get("https://basketball-8c6403ba5b9d.herokuapp.com/delete-scores")
       .then((res) => {
         setScores();
         console.log(res.data);
