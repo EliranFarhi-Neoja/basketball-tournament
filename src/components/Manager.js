@@ -1,4 +1,5 @@
 import { Avatar, AvatarGroup, Button, Divider } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -7,8 +8,41 @@ const Manager = () => {
   const [rankings, setRankings] = useState();
   const [loader, setLoader] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [scores, setScores] = useState();
 
   const navigate = useNavigate();
+
+  const getScores = async () => {
+    await axios
+      .get("http://localhost:7000/get-scores")
+      .then((res) => {
+        setScores(res.data.scores.slice(0, 10));
+        console.log(res.data.scores.slice(0, 10));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteScores = async () => {
+    window.confirm('Are you sure you want to reset database?')
+    await axios
+      .get("http://localhost:7000/delete-scores")
+      .then((res) => {
+        setScores();
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getScores();
+    setInterval(() => {
+      getScores();
+    }, 15000);
+  }, []);
 
   return (
     <>
@@ -21,7 +55,7 @@ const Manager = () => {
           {errorMsg && <div>{errorMsg}</div>}
 
           <div className="flex justify-end space-x-2">
-          <Button
+            <Button
               sx={{
                 bgcolor: "#44A093",
                 color: "white",
@@ -33,7 +67,10 @@ const Manager = () => {
                   bgcolor: "#44A093",
                 },
               }}
-              
+
+              onClick={() => {
+                deleteScores();
+              }}
             >
               Reset
             </Button>
@@ -59,8 +96,8 @@ const Manager = () => {
 
           <div className="bg-white  overflow-auto lg:w-full px-4 my-8  ">
             {/* <div className="text-center lg:text-[40px] text-[22px] font-[600] text-[#06B3D2] my-4 lg:my-0">
-              Standings
-            </div> */}
+                Standings
+              </div> */}
 
             <div className="flex justify-center w-full">
               <div className=" grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 px-1">
@@ -96,77 +133,122 @@ const Manager = () => {
             </div>
             <Divider sx={{ my: 1 }} />
 
-            {[1, 2, 3, 4].map((item, index) => (
-              <>
-                <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
-                  <div className="col-span-1 text-[20px] font-bold text-black ">
-                    {index + 1}
-                  </div>
-                  <div className="col-span-2 text-[20px] font-bold text-black ">
-                    Emil Khan
-                  </div>
-                  <div className="col-span-2 text-[20px] font-bold text-black ">
-                    The Greats
-                  </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    22
-                  </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    0
-                  </div>
+            {scores &&
+              scores.map((item, index) => (
+                <>
+                  <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black "
+                          : "col-span-1 text-[18px] text-black font-[400]"
+                      }
+                    >
+                      {index + 1}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-2 text-[20px] font-bold text-black "
+                          : "col-span-2 text-[18px] text-black font-[400]"
+                      }
+                    >
+                      {item.player}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-2 text-[20px] font-bold text-black "
+                          : "col-span-2 text-[18px] text-black font-[400]"
+                      }
+                    >
+                      {item.team}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block"
+                          : "col-span-1 text-[18px] text-black font-[400] hidden lg:block"
+                      }
+                    >
+                      {item.game1}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block"
+                          : "col-span-1 text-[18px] text-black font-[400] hidden lg:block"
+                      }
+                    >
+                      {item.game2}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block"
+                          : "col-span-1 text-[18px] text-black font-[400] hidden lg:block"
+                      }
+                    >
+                      {item.game3}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block"
+                          : "col-span-1 text-[18px] text-black font-[400] hidden lg:block"
+                      }
+                    >
+                      {item.game4}
+                    </div>
 
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    Game 3
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block"
+                          : "col-span-1 text-[18px] text-black font-[400] hidden lg:block"
+                      }
+                    >
+                      {Math.max(
+                        item.game1,
+                        item.game2,
+                        item.game3,
+                        item.game4
+                      ) == item.game1 && "Game 1"}
+                      {Math.max(
+                        item.game1,
+                        item.game2,
+                        item.game3,
+                        item.game4
+                      ) == item.game2 && "Game 2"}
+                      {Math.max(
+                        item.game1,
+                        item.game2,
+                        item.game3,
+                        item.game4
+                      ) == item.game3 && "Game 3"}
+                      {Math.max(
+                        item.game1,
+                        item.game2,
+                        item.game3,
+                        item.game4
+                      ) == item.game4 && "Game 4"}
+                    </div>
+                    <div
+                      className={
+                        index < 4
+                          ? "col-span-1 text-[20px] font-bold text-black text-center "
+                          : "col-span-1 text-[18px] text-black font-[400] text-center"
+                      }
+                    >
+                      {Number(item.game1) +
+                        Number(item.game2) +
+                        Number(item.game3) +
+                        Number(item.game4)}
+                    </div>
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black text-center ">
-                    44
-                  </div>
-                </div>
-                <Divider sx={{ my: 1 }} />
-              </>
-            ))}
-
-            {[1, 2, 3, 4,7,8].map((item, index) => (
-              <>
-                <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
-                  <div className="col-span-1 text-[18px] text-black font-[400]">
-                    {index+5}
-                  </div>
-                  <div className="col-span-2 text-[18px] text-black font-[400]">
-                    Emil Khan
-                  </div>
-                  <div className="col-span-2 text-[18px] text-black font-[400]">
-                    The Greats
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    22
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    0
-                  </div>
-
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    Game 3
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] text-center">
-                    44
-                  </div>
-                </div>
-                <Divider sx={{ my: 1 }} />
-              </>
-            ))}
+                  {index + 1 != scores.length && <Divider sx={{ my: 1 }} />}
+                </>
+              ))}
           </div>
         </div>
       ) : (

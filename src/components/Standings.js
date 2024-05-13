@@ -1,4 +1,5 @@
 import { Avatar, AvatarGroup, Button, Divider } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -7,8 +8,28 @@ const Standings = () => {
   const [rankings, setRankings] = useState();
   const [loader, setLoader] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [scores, setScores] = useState()
 
   const navigate = useNavigate();
+
+  const getScores = async() => {
+    await axios.get("http://localhost:7000/get-scores")
+    .then((res)=>{
+       setScores(res.data.scores.slice(0, 10))
+       console.log(res.data.scores.slice(0, 10))
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    getScores()
+    setInterval(() => {
+      getScores()
+    }, 15000);
+  }, [])
+  
 
   return (
     <>
@@ -80,77 +101,48 @@ const Standings = () => {
             </div>
             <Divider sx={{ my: 1 }} />
 
-            {[1, 2, 3, 4].map((item, index) => (
+            {scores && scores.map((item, index) => (
               <>
                 <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
-                  <div className="col-span-1 text-[20px] font-bold text-black ">
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black ":"col-span-1 text-[18px] text-black font-[400]" }>
                     {index + 1}
                   </div>
-                  <div className="col-span-2 text-[20px] font-bold text-black ">
-                    Emil Khan
+                  <div className={index < 4 ?"col-span-2 text-[20px] font-bold text-black ": "col-span-2 text-[18px] text-black font-[400]"}>
+                    {item.player}
                   </div>
-                  <div className="col-span-2 text-[20px] font-bold text-black ">
-                    The Greats
+                  <div className={index < 4 ?"col-span-2 text-[20px] font-bold text-black ": "col-span-2 text-[18px] text-black font-[400]"}>
+                    {item.team}
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    11
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block": "col-span-1 text-[18px] text-black font-[400] hidden lg:block"}>
+                    {item.game1}
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    11
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block": "col-span-1 text-[18px] text-black font-[400] hidden lg:block"}>
+                    {item.game2}
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    22
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block": "col-span-1 text-[18px] text-black font-[400] hidden lg:block"}>
+                    {item.game3}
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    0
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black  hidden lg:block": "col-span-1 text-[18px] text-black font-[400] hidden lg:block"}>
+                   {item.game4}
                   </div>
 
-                  <div className="col-span-1 text-[20px] font-bold text-black  hidden lg:block">
-                    Game 3
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black  hidden text-center lg:block": "col-span-1 text-[18px] text-black font-[400] hidden lg:block"}>
+                   {Math.max(item.game1, item.game2, item.game3,item.game4) == item.game1 && (<span className="text-green-900 font-bold"> 1 </span>)} {" "}
+                   {Math.max(item.game1, item.game2, item.game3,item.game4) == item.game2 && (<span className="text-blue-900 font-bold"> 2 </span>)} {" "}
+                   {Math.max(item.game1, item.game2, item.game3,item.game4) == item.game3 && (<span className="text-red-900 font-bold"> 3 </span>)} {" "}
+                   {Math.max(item.game1, item.game2, item.game3,item.game4) == item.game4 && (<span className="text-yellow-500 font-bold"> 4 </span>)} {" "}
                   </div>
-                  <div className="col-span-1 text-[20px] font-bold text-black text-center ">
-                    44
+                  <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black text-center " : "col-span-1 text-[18px] text-black font-[400] text-center"}>
+                    {Number(item.game1)+ Number(item.game2)+ Number(item.game3)+ Number(item.game4)}
                   </div>
                 </div>
-                <Divider sx={{ my: 1 }} />
+               {index+1 != scores.length && (
+                 <Divider sx={{ my: 1 }} />
+               )}
               </>
             ))}
 
-            {[1, 2, 3, 4,7,8].map((item, index) => (
-              <>
-                <div className="px-2 grid lg:grid-cols-11 grid-cols-6 w-full my-3 lg:px-10 ">
-                  <div className="col-span-1 text-[18px] text-black font-[400]">
-                    {index+5}
-                  </div>
-                  <div className="col-span-2 text-[18px] text-black font-[400]">
-                    Emil Khan
-                  </div>
-                  <div className="col-span-2 text-[18px] text-black font-[400]">
-                    The Greats
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    11
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    22
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    0
-                  </div>
-
-                  <div className="col-span-1 text-[18px] text-black font-[400] hidden lg:block">
-                    Game 3
-                  </div>
-                  <div className="col-span-1 text-[18px] text-black font-[400] text-center">
-                    44
-                  </div>
-                </div>
-                <Divider sx={{ my: 1 }} />
-              </>
-            ))}
+           
           </div>
         </div>
       ) : (
