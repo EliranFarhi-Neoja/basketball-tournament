@@ -133,7 +133,8 @@ const Standings = () => {
                    {Math.max(item.game1, item.game2, item.game3,item.game4) == item.game4 && (<span className="text-yellow-500 font-bold"> 4 </span>)} {" "}
                   </div>
                   <div className={index < 4 ? "col-span-1 text-[20px] font-bold text-black text-center " : "col-span-1 text-[18px] text-black font-[400] text-center"}>
-                    {Number(item.game1)+ Number(item.game2)+ Number(item.game3)+ Number(item.game4)}
+                    {/* {Number(item.game1)+ Number(item.game2)+ Number(item.game3)+ Number(item.game4)} */}
+                    {Math.max(item.game1, item.game2, item.game3,item.game4)}
                   </div>
                 </div>
                {index+1 != scores.length && (

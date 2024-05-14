@@ -25,7 +25,7 @@ const Manager = () => {
   };
 
   const deleteScores = async () => {
-    window.confirm('Are you sure you want to reset database?')
+    window.confirm("Are you sure you want to reset database?");
     await axios
       .get("https://basketball-8c6403ba5b9d.herokuapp.com/delete-scores")
       .then((res) => {
@@ -67,7 +67,6 @@ const Manager = () => {
                   bgcolor: "#44A093",
                 },
               }}
-
               onClick={() => {
                 deleteScores();
               }}
@@ -240,10 +239,12 @@ const Manager = () => {
                           : "col-span-1 text-[18px] text-black font-[400] text-center"
                       }
                     >
-                      {Number(item.game1) +
+                      {/* {Number(item.game1) +
                         Number(item.game2) +
                         Number(item.game3) +
-                        Number(item.game4)}
+                        Number(item.game4)} */}
+
+                      {Math.max(item.game1, item.game2, item.game3, item.game4)}
                     </div>
                   </div>
                   {index + 1 != scores.length && <Divider sx={{ my: 1 }} />}
