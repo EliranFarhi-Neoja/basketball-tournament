@@ -97,7 +97,7 @@ const SubmitScore = () => {
 
 
   useEffect(() => {
-    if(!user || user.code != 1234){
+    if(!user || user.code != 4321){
       navigate('/')
     }
   }, [])
