@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Login = () => {
   let urlParams = new URLSearchParams(window.location.search);
   let token = urlParams.get("token");
-  let auth_code = 1234
+  let auth_code = 4321
   // const { token } = useParams();
   const [code, setCode] = useState();
   const [verificationCode, setVerificationCode] = useState();
